@@ -1,0 +1,19 @@
+.board {
+  display: flex;
+  flex-direction: column;
+  background: #0f0f1e;
+  border: 3px solid #2a2a4e;
+  border-radius: 8px;
+  padding: 4px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.board-row {
+  display: flex;
+  width: 100%;
+}
+
+.board-row .cell {
+  aspect-ratio: 1;
+  width: calc(100% / 10);
+}
