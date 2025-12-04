@@ -103,3 +103,16 @@ export const calculateLevel = (totalLines) => {
 export const getDropSpeed = (level) => {
   return Math.max(100, 1000 - (level - 1) * 100);
 };
+
+export const calculateHardDropDistance = (board, piece, position) => {
+  let distance = 0;
+  let testPosition = { ...position };
+  
+  // Keep moving down until we hit a collision
+  while (!checkCollision(board, piece, { row: testPosition.row + 1, col: testPosition.col })) {
+    testPosition.row++;
+    distance++;
+  }
+  
+  return distance;
+};

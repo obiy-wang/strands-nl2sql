@@ -42,6 +42,10 @@ const GameControls = ({ onStart, onPause, onResume, gameState, isPaused }) => {
           <span>↓</span>
           <span>Drop</span>
         </div>
+        <div className="control-item">
+          <span>SPACE</span>
+          <span>Hard Drop</span>
+        </div>
       </div>
     </div>
   );

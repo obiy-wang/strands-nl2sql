@@ -15,6 +15,7 @@ import {
   calculateLevel,
   getDropSpeed,
   rotatePiece,
+  calculateHardDropDistance,
   BOARD_WIDTH
 } from '../gameHelpers';
 import './Game.css';
@@ -134,15 +135,23 @@ const Game = () => {
   const hardDrop = useCallback(() => {
     if (!currentPiece || gameState !== 'playing' || isPaused) return;
 
-    let dropDistance = 0;
-    while (movePiece(1, 0)) {
-      dropDistance++;
+    // Calculate drop distance before moving piece
+    const dropDistance = calculateHardDropDistance(board, currentPiece, position);
+    
+    // Calculate bonus points (2 × drop distance)
+    const bonusPoints = 2 * dropDistance;
+    
+    // Update score state with bonus points
+    setScore(prevScore => prevScore + bonusPoints);
+    
+    // Move piece to lowest position using existing movePiece
+    for (let i = 0; i < dropDistance; i++) {
+      movePiece(1, 0);
     }
     
-    if (dropDistance === 0) {
-      dropPiece();
-    }
-  }, [currentPiece, movePiece, dropPiece, gameState, isPaused]);
+    // Call dropPiece to lock and trigger line clearing
+    dropPiece();
+  }, [currentPiece, board, position, movePiece, dropPiece, gameState, isPaused]);
 
   useEffect(() => {
     if (gameState === 'playing' && !currentPiece && !isPaused) {
